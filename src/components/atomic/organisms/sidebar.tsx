@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import Test from '../pages/test';
-
 import { Link } from "react-router-dom";
 
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
@@ -24,6 +22,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import useMediaQuery from '@mui/material/useMediaQuery';
+
+import AvatarInfo from '../molecules/AvatarInfo';
+import MainMenu from '../molecules/MainMenu';
 
 const drawerWidth = 240;
 
@@ -48,15 +49,11 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-// const responsiveControl = (theme: Theme): CSSObject => ({
-//   breakpoints: theme.breakpoints
-//   const isSmallScreen = useMediaQuery(theme => theme.breakpoints.down("xs"));
-// });
-
 const DrawerHeader = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
+
   // padding: theme.spacing(0, 1),s
   // // necessary for content to be below app bar
   // ...theme.mixins.toolbar,
@@ -109,7 +106,7 @@ const Sidebar = (props: any) => {
   const theme: Theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -149,27 +146,7 @@ const Sidebar = (props: any) => {
               <ChevronLeftIcon />
             </IconButton>
           </DrawerHeader>
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+          <MainMenu/>
         </SwipeableDrawer>
       </>
     );
@@ -185,69 +162,25 @@ const Sidebar = (props: any) => {
           sx={{
             position: 'absolute',
             top: '0',
-            left: '0'
-            // ...(open && { display: 'none' }),
+            left: '50%',
+            padding: 0,
+            ...(open && { left: '90%' }),
           }}
         >
           { open ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
         </IconButton>
         <DrawerHeader>
-          <Box>Hi</Box>
+          <AvatarInfo open={open}/>
         </DrawerHeader>
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        <MainMenu/>
       </Drawer>
     );
   };
 
   return (
-    <>
-      <Box sx={{ display: 'flex' }}>
-
-        <CssBaseline />
-        {
-          !isSmallScreen ? smView() : lgView()
-        }
-
-        {/* <AppBar position="fixed" open={open}> */}
-          {/* <Toolbar> */}
-            {/* <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton> */}
-          {/* </Toolbar> */}
-        {/* </AppBar> */}
-
-      </Box>
-    </>
+    <Box sx={{ display: 'flex' }}>
+      { isSmallScreen ? smView() : lgView() }
+    </Box>
   );
 }
 
