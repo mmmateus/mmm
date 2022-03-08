@@ -24,6 +24,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { relative } from 'path';
 
 const drawerWidth = 240;
 
@@ -57,6 +58,8 @@ const DrawerHeader = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
+  minHeight: 64
+
   // padding: theme.spacing(0, 1),s
   // // necessary for content to be below app bar
   // ...theme.mixins.toolbar,
@@ -178,21 +181,20 @@ const Sidebar = (props: any) => {
   const lgView = () => {
     return (
       <Drawer variant="permanent" open={open}>
-        <IconButton
-          aria-label="open drawer"
-          onClick={open ? handleDrawerClose : handleDrawerOpen}
-          edge="start"
-          sx={{
-            position: 'absolute',
-            top: '0',
-            left: '0'
-            // ...(open && { display: 'none' }),
-          }}
-        >
-          { open ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
-        </IconButton>
         <DrawerHeader>
-          <Box>Hi</Box>
+          <IconButton
+            aria-label="open drawer"
+            onClick={open ? handleDrawerClose : handleDrawerOpen}
+            edge="start"
+            sx={{
+              position: 'absolute',
+              top: '0',
+              right: '16px',
+              // ...(open && { display: 'none' }),
+            }}
+          >
+            {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
@@ -223,29 +225,8 @@ const Sidebar = (props: any) => {
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-
         <CssBaseline />
-        {
-          !isSmallScreen ? smView() : lgView()
-        }
-
-        {/* <AppBar position="fixed" open={open}> */}
-          {/* <Toolbar> */}
-            {/* <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton> */}
-          {/* </Toolbar> */}
-        {/* </AppBar> */}
-
+        { isSmallScreen ? smView() : lgView() }
       </Box>
     </>
   );

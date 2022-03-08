@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom";
 
 const Layout = (props: any) => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', overflow: 'auto' }}>
       <CssBaseline />
       <Sidebar />
       <Outlet />
