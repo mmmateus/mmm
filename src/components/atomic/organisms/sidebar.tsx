@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import Test from '../pages/test';
 
+import Avatar from '../molecules/avatar';
+
 import { Link } from "react-router-dom";
 
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
@@ -58,7 +60,8 @@ const DrawerHeader = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
-  minHeight: 64
+  minHeight: 64,
+  // border: 'solid 2px yellow'
 
   // padding: theme.spacing(0, 1),s
   // // necessary for content to be below app bar
@@ -183,18 +186,20 @@ const Sidebar = (props: any) => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton
+            size="small"
             aria-label="open drawer"
             onClick={open ? handleDrawerClose : handleDrawerOpen}
             edge="start"
             sx={{
               position: 'absolute',
-              top: '0',
-              right: '16px',
+              top: 8,
+              right: 8,
               // ...(open && { display: 'none' }),
             }}
           >
             {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
+          <Avatar theme={props.theme} open={open}/>
         </DrawerHeader>
         <Divider />
         <List>
